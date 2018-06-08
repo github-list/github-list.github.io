@@ -6,7 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Redirect } from "react-router-dom";
 
-import { API_URL, GITHUB_STAR_PROJECT } from "../constants";
+import getEnv from "../constants";
+const { API_URL, GITHUB_STAR_PROJECT } = getEnv();
 
 const styles = theme => ({
   root: {

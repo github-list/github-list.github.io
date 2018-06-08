@@ -9,7 +9,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItem from './ListItem';
 import languagesList from "../languages.json";
 import { calculateRatio } from "../utils/contrast";
-import { API_URL, GITHUB_STAR_PROJECT } from "../constants";
+import getEnv from "../constants";
+
+const { API_URL, GITHUB_STAR_PROJECT } = getEnv();
+
 
 const styles = theme => ({
   root: {
