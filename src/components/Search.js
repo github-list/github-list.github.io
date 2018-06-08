@@ -27,6 +27,9 @@ const styles = theme => ({
     marginTop: 24,
     marginBottom: 24,
     width: "50%",
+  },
+  note: {
+    marginTop: 24,
   }
 });
 
@@ -112,6 +115,7 @@ class Search extends React.Component {
         <Button variant="contained" color="primary" type="submit">
           Search
         </Button>
+        <Typography className={classes.note} variant="caption" align="center">Note: To include organization in search you must have “Organization visibility” set to “Public”.</Typography>
       </Paper>
     );
   }
