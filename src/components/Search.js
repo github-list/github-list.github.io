@@ -3,6 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import { Redirect } from "react-router-dom";
 
@@ -40,6 +41,7 @@ class Search extends React.Component {
     username: "",
     error: zws, // NOTE it should be a zero width space in here
     success: false,
+    validationLoading: false,
   }
 
   onSubmit = async (e) => {
@@ -56,8 +58,13 @@ class Search extends React.Component {
     let res;
 
     try {
+      this.setState({ validationLoading: true });
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       res = await fetch(`${API_URL}/user/${username}/check`).then(res => res.json());
+      this.setState({ validationLoading: false });
     } catch (e) {
+      this.setState({ validationLoading: false });
+
       console.error(e);
 
       res = {
@@ -92,10 +99,11 @@ class Search extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { validationLoading, success, username, error } = this.state;
 
-    if ( this.state.success ) {
+    if ( success ) {
       return (
-        <Redirect to={`/${this.state.username}`} />
+        <Redirect to={`/${username}`} />
       )
     }
 
@@ -107,9 +115,9 @@ class Search extends React.Component {
             fullWidth
             onChange={this.onUsernameChange}
             label="GitHub username"
-            value={this.state.username}
-            error={this.state.error !== zws}
-            helperText={this.state.error}
+            value={username}
+            error={error !== zws}
+            helperText={ validationLoading ? (<LinearProgress component="span" />) : error }
           />
         </div>
         <Button variant="contained" color="primary" type="submit">
