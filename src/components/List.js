@@ -125,7 +125,8 @@ class FolderList extends React.Component {
       const date = new Date(createdAt);
       const formattedDate = date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear()
 
-      const backgroundColor = getColor(language);
+
+      const backgroundColor = (language && getColor(language)) || "inherit";
       let textColor = "inherit";
 
       if ( backgroundColor !== "inherit" ) {
